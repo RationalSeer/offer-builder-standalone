@@ -1,4 +1,4 @@
-import { OfferTheme } from '../../types/inhouseOffer';
+import type { OfferTheme } from '../../types/inhouseOffer';
 import { Type, Palette, Layout as LayoutIcon } from 'lucide-react';
 
 interface DesignSettingsPanelProps {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Code, Search, Info } from 'lucide-react';
-import { BUILT_IN_VARIABLES, DynamicVariable } from '../../types/dynamicContent';
+import type { DynamicVariable } from '../../types/dynamicContent';
+import { BUILT_IN_VARIABLES } from '../../types/dynamicContent';
 
 interface DynamicVariableInserterProps {
   onInsert: (variable: string) => void;

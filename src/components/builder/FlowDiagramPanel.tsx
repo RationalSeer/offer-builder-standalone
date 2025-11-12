@@ -1,5 +1,5 @@
 import { ArrowRight, GitBranch, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
-import { OfferStep } from '../../types/inhouseOffer';
+import type { OfferStep } from '../../types/inhouseOffer';
 
 interface FlowDiagramPanelProps {
   steps: OfferStep[];

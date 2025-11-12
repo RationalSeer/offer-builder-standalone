@@ -1,5 +1,5 @@
 import { X, CheckCircle, Clock, Award, TrendingUp, ArrowRight } from 'lucide-react';
-import { WizardTemplate } from '../types/dynamicContent';
+import type { WizardTemplate } from '../../types/dynamicContent';
 import { Button } from './Button';
 
 interface TemplateComparisonModalProps {

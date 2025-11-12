@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { OfferTemplate, OfferTheme, OfferVersion, MediaAsset } from '../types/inhouseOffer';
+import type { OfferTemplate, OfferTheme, OfferVersion, MediaAsset } from '../types/inhouseOffer';
 
 export async function getAllTemplates(): Promise<OfferTemplate[]> {
   const { data, error } = await supabase

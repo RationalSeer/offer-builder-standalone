@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
-import { OfferTheme } from '../../types/inhouseOffer';
+import type { OfferTheme } from '../../types/inhouseOffer';
 
 interface ThemeEditorPanelProps {
   themes: OfferTheme[];

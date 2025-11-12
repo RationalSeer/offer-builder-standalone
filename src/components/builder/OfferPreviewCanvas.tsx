@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { ChevronRight, Check, Edit2 } from 'lucide-react';
-import { InhouseOffer, OfferStep, OfferTheme } from '../../types/inhouseOffer';
+import type { InhouseOffer, OfferStep, OfferTheme } from '../../types/inhouseOffer';
 import { debounce } from '../../lib/utils';
 
 interface OfferPreviewCanvasProps {

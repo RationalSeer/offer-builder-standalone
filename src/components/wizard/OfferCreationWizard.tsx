@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { X, ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react';
-import { WizardState, WizardTemplate } from '../../types/dynamicContent';
+import type { WizardState, WizardTemplate } from '../../types/dynamicContent';
 import { WizardStepVertical } from './WizardStepVertical';
 import { WizardStepTemplate } from './WizardStepTemplate';
 import { WizardStepAISuggestions } from './WizardStepAISuggestions';
 import { WizardStepDesign } from './WizardStepDesign';
 import { WizardStepRouting } from './WizardStepRouting';
-import { InhouseOffer, OfferStep } from '../../types/inhouseOffer';
+import type { InhouseOffer, OfferStep } from '../../types/inhouseOffer';
 import { incrementTemplateUsage } from '../../services/wizardTemplateService';
 
 interface OfferCreationWizardProps {

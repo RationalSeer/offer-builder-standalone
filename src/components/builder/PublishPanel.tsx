@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Globe, Calendar, Clock, ExternalLink, Copy, Check } from 'lucide-react';
-import { InhouseOffer } from '../../types/inhouseOffer';
-import { getOfferVersions, publishOfferVersion } from '../../services/offerTemplateService';
+import type { InhouseOffer } from '../../types/inhouseOffer';
+import type { getOfferVersions, publishOfferVersion } from '../../services/offerTemplateService';
 
 interface PublishPanelProps {
   offerId: string;

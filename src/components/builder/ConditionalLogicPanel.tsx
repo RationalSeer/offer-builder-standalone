@@ -1,5 +1,5 @@
 import { Plus, Trash2, AlertCircle, GitBranch, X } from 'lucide-react';
-import { OfferStep, ConditionalRule, ConditionalLogic } from '../../types/inhouseOffer';
+import type { OfferStep, ConditionalRule, ConditionalLogic } from '../../types/inhouseOffer';
 
 interface ConditionalLogicPanelProps {
   currentStep: OfferStep;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Search, Grid, List, TrendingUp, Award, Clock, DollarSign, ChevronDown, X, Eye, CheckCircle } from 'lucide-react';
-import { WizardTemplate } from '../types/dynamicContent';
-import { getWizardTemplates, incrementTemplateUsage } from '../services/wizardTemplateService';
+import { Search, Grid, List, TrendingUp, Award, Clock, X, Eye, CheckCircle } from 'lucide-react';
+import type { WizardTemplate } from '../../types/dynamicContent';
+import { getWizardTemplates, incrementTemplateUsage } from '../../services/wizardTemplateService';
 import { Button } from './Button';
 
 interface TemplateGalleryProps {

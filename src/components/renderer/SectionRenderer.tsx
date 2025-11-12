@@ -1,4 +1,4 @@
-import { PageSection } from '../../types/pageBuilder';
+import type { PageSection } from '../../types/pageBuilder';
 
 export interface SectionRendererProps {
   section: PageSection;

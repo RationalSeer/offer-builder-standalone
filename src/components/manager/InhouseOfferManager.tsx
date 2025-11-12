@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Copy, Play, Pause, BarChart, BookOpen } from 'lucide-react';
-import { InhouseOffer, OfferStep } from '../types/inhouseOffer';
-import { getAllOffers, updateOffer, cloneOffer, deleteOffer, createOffer, saveAllOfferSteps } from '../services/offerService';
+import { Plus, Edit, Trash2, Copy, Play, Pause, BookOpen } from 'lucide-react';
+import type { InhouseOffer } from '../../types/inhouseOffer';
+import { getAllOffers, updateOffer, cloneOffer, deleteOffer, createOffer } from '../../services/offerService';
 import { AdvancedOfferBuilder } from '../builder/AdvancedOfferBuilder';
 import { OfferCreationWizard } from '../wizard/OfferCreationWizard';
 import { OfferCreationModeModal } from '../ui/OfferCreationModeModal';
 import { TemplateGallery } from '../ui/TemplateGallery';
 import { TemplatePreviewModal } from '../ui/TemplatePreviewModal';
 import { TemplateComparisonModal } from '../ui/TemplateComparisonModal';
-import { WizardTemplate } from '../types/dynamicContent';
+import type { WizardTemplate } from '../../types/dynamicContent';
 
 export function InhouseOfferManager() {
   const [offers, setOffers] = useState<InhouseOffer[]>([]);

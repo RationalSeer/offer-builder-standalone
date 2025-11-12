@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { WizardTemplate } from '../types/dynamicContent';
+import type { WizardTemplate } from '../types/dynamicContent';
 
 export async function getWizardTemplates(vertical?: string, goal?: string): Promise<WizardTemplate[]> {
   try {

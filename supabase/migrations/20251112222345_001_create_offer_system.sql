@@ -59,7 +59,7 @@
   - `started_at` (timestamptz)
   - `completed_at` (timestamptz)
   - `last_activity_at` (timestamptz)
-  - `lead_id` (uuid) - Foreign key to leads table when completed
+  - `lead_id` (uuid) - Reference to external lead (nullable)
   - `created_at` (timestamptz)
 
   ### 4. `offer_responses`

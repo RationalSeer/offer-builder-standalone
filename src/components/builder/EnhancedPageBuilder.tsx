@@ -22,7 +22,7 @@ import { Badge } from '../ui/Badge';
 import { SectionLibraryPanel } from './SectionLibraryPanel';
 import { StylePanel } from './StylePanel';
 import { ContentEditorPanel } from './ContentEditorPanel';
-import { PageSection, ElementStyle } from '../../types/pageBuilder';
+import type { PageSection, ElementStyle } from '../../types/pageBuilder';
 import { SectionRenderer } from '../../components/renderer/SectionRenderer';
 import { cn } from '../../lib/utils';
 

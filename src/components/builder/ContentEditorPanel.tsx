@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Plus, Trash2, Image as ImageIcon } from 'lucide-react';
-import { PageSection } from '../../types/pageBuilder';
+import type { PageSection } from '../../types/pageBuilder';
 
 interface ContentEditorPanelProps {
   section: PageSection | null;

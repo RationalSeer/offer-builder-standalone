@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Check, AlertCircle } from 'lucide-react';
-import { InhouseOffer, OfferStep, OfferSession } from '../../types/inhouseOffer';
+import type { InhouseOffer, OfferStep, OfferSession } from '../../types/inhouseOffer';
 import {
   getOfferBySlug,
   getOfferSteps,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search, X, Eye, CheckCircle, Clock, Award, BookOpen } from 'lucide-react';
-import { WizardTemplate } from '../types/dynamicContent';
-import { getWizardTemplates, incrementTemplateUsage } from '../services/wizardTemplateService';
+import type { WizardTemplate } from '../../types/dynamicContent';
+import { getWizardTemplates, incrementTemplateUsage } from '../../services/wizardTemplateService';
 import { Button } from './Button';
 import { TemplatePreviewModal } from './TemplatePreviewModal';
 

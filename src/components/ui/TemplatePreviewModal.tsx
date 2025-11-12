@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Monitor, Smartphone, CheckCircle, Clock, Award, ArrowRight } from 'lucide-react';
-import { WizardTemplate } from '../types/dynamicContent';
+import type { WizardTemplate } from '../../types/dynamicContent';
 import { Button } from './Button';
 
 interface TemplatePreviewModalProps {

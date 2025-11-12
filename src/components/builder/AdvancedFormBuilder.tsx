@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Plus, Trash2, GripVertical, Settings, Eye, EyeOff, Save } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { Plus, Trash2, GripVertical, Settings, Save } from 'lucide-react';
+import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { FormFieldConfig, MultiStepFormConfig } from '../../types/pageBuilder';
+import type { FormFieldConfig, MultiStepFormConfig } from '../../types/pageBuilder';
 import { cn } from '../../lib/utils';
 
 interface AdvancedFormBuilderProps {

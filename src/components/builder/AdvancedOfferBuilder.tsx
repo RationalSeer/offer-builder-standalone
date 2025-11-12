@@ -6,17 +6,11 @@ import {
   Tablet,
   Smartphone,
   Settings,
-  Palette,
-  Layout,
-  Layers,
-  Upload,
-  Play,
-  Clock,
   ArrowLeft,
   RefreshCw,
   AlertCircle,
 } from 'lucide-react';
-import { InhouseOffer, OfferStep, OfferTheme } from '../../types/inhouseOffer';
+import type { InhouseOffer, OfferStep, OfferTheme } from '../../types/inhouseOffer';
 import {
   createOffer,
   updateOffer,
@@ -24,7 +18,7 @@ import {
   saveAllOfferSteps,
   getOfferById,
 } from '../../services/offerService';
-import { getAllThemes, createOfferVersion } from '../../services/offerTemplateService';
+import { getAllThemes } from '../../services/offerTemplateService';
 import { retryOperation, validateOfferData, formatValidationErrors, getFieldError } from '../../lib/retry-utils';
 import { OfferPreviewCanvas } from './OfferPreviewCanvas';
 import { StepDesignerPanel } from './StepDesignerPanel';
@@ -34,11 +28,11 @@ import { SEOModal } from './SEOModal';
 import { DesignSettingsPanel } from './DesignSettingsPanel';
 import { SettingsPanel } from './SettingsPanel';
 import { FlowDiagramPanel } from './FlowDiagramPanel';
-import { EnhancedPageBuilder } from './EnhancedPageBuilder';
 import { QuickActionsToolbar, useQuickActions, getOfferBuilderActions } from './QuickActionsToolbar';
-import { CollapsibleSidebar, PanelMode as SidebarPanel } from './CollapsibleSidebar';
+type SidebarPanel = 'steps' | 'theme' | 'design' | 'settings' | 'flow' | 'page' | 'publish';
+import { CollapsibleSidebar } from './CollapsibleSidebar';
 import { TemplateQuickSelector } from '../ui/TemplateQuickSelector';
-import { WizardTemplate } from '../../types/dynamicContent';
+import type { WizardTemplate } from '../../types/dynamicContent';
 
 interface AdvancedOfferBuilderProps {
   offerId?: string;

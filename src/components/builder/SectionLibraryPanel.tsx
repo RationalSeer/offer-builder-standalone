@@ -4,7 +4,7 @@ import * as LucideIcons from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { sectionLibraryData, sectionCategories } from '../../data/sectionLibrary';
-import { PageSection } from '../../types/pageBuilder';
+import type { PageSection } from '../../types/pageBuilder';
 
 interface SectionLibraryPanelProps {
   onAddSection: (section: PageSection) => void;

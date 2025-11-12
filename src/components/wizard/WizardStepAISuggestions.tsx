@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Sparkles, Check, Loader } from 'lucide-react';
-import { OfferStep } from '../../types/inhouseOffer';
+import type { OfferStep } from '../../types/inhouseOffer';
 
 interface WizardStepAISuggestionsProps {
   vertical: string;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, GripVertical, Save, Eye, Settings, Copy, AlertCircle, RefreshCw } from 'lucide-react';
-import { InhouseOffer, OfferStep, StepType, StepOption } from '../../types/inhouseOffer';
+import { Plus, Trash2, GripVertical, Save, AlertCircle, RefreshCw } from 'lucide-react';
+import type { InhouseOffer, OfferStep, StepType, StepOption } from '../../types/inhouseOffer';
 import {
   createOffer,
   updateOffer,
@@ -9,8 +9,8 @@ import {
   updateOfferStep,
   deleteOfferStep,
   reorderSteps,
-} from '../services/offerService';
-import { retryOperation, validateOfferData, formatValidationErrors, getFieldError } from '../lib/retry-utils';
+} from '../../services/offerService';
+import { retryOperation, validateOfferData, formatValidationErrors, getFieldError } from '../../lib/retry-utils';
 
 interface OfferBuilderProps {
   offerId?: string;

@@ -1,12 +1,11 @@
 import { supabase, checkUserAuthentication, getSupabaseErrorMessage } from '../lib/supabase';
-import {
+import type {
   InhouseOffer,
   OfferStep,
   OfferSession,
   OfferResponse,
   OfferAnalytics,
   EmailSubscriber,
-  GeoData,
 } from '../types/inhouseOffer';
 
 const DEBUG = true;

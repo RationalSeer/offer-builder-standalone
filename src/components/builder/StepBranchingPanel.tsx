@@ -1,5 +1,5 @@
 import { GitBranch, ArrowRight, CheckCircle } from 'lucide-react';
-import { OfferStep, StepOption } from '../../types/inhouseOffer';
+import type { OfferStep, StepOption } from '../../types/inhouseOffer';
 
 interface StepBranchingPanelProps {
   currentStep: OfferStep;

@@ -5,7 +5,7 @@ import {
   ConditionalTemplate,
   applyTemplate,
 } from '../../data/conditionalTemplates';
-import { OfferStep } from '../../types/inhouseOffer';
+import type { OfferStep } from '../../types/inhouseOffer';
 
 interface ConditionalTemplatesPanelProps {
   currentStep: OfferStep;

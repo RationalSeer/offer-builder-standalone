@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Check, Sparkles, FileText, TrendingUp } from 'lucide-react';
-import { WizardTemplate } from '../../types/dynamicContent';
-import { getWizardTemplates } from '../../services/wizardTemplateService';
+import type { WizardTemplate } from '../../types/dynamicContent';
+import type { getWizardTemplates } from '../../services/wizardTemplateService';
 
 interface WizardStepTemplateProps {
   vertical: string;

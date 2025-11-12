@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Settings, Globe, DollarSign, Tag, Image, FileText, Clock, Languages, Code, Webhook, TestTube, Palette } from 'lucide-react';
-import { InhouseOffer, TrackingPixel, WebhookConfig } from '../../types/inhouseOffer';
+import type { InhouseOffer, TrackingPixel, WebhookConfig } from '../../types/inhouseOffer';
 
 interface SettingsPanelProps {
   offer: Partial<InhouseOffer>;
