@@ -26,7 +26,7 @@ export const stepTemplates: StepTemplate[] = [
     placeholder_text: 'your@email.com',
     validation_rules: {
       required: true,
-      format: 'email'
+      pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
     },
     field_mapping: 'email',
     tags: ['basic', 'contact']
@@ -41,7 +41,7 @@ export const stepTemplates: StepTemplate[] = [
     placeholder_text: '(555) 123-4567',
     validation_rules: {
       required: true,
-      format: 'phone'
+      pattern: '^[\\d\\s\\(\\)\\-\\+]+$'
     },
     field_mapping: 'phone',
     tags: ['basic', 'contact']
@@ -54,8 +54,8 @@ export const stepTemplates: StepTemplate[] = [
     step_type: 'single_choice',
     question_text: 'Your question here?',
     options: [
-      { id: 'yes', label: 'Yes', value: 'yes' },
-      { id: 'no', label: 'No', value: 'no' }
+      { label: 'Yes', value: 'yes' },
+      { label: 'No', value: 'no' }
     ],
     validation_rules: {
       required: true

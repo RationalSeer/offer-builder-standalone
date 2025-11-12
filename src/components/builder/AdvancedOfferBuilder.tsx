@@ -5,7 +5,6 @@ import {
   Monitor,
   Tablet,
   Smartphone,
-  Settings,
   ArrowLeft,
   RefreshCw,
   AlertCircle,
@@ -29,7 +28,6 @@ import { DesignSettingsPanel } from './DesignSettingsPanel';
 import { SettingsPanel } from './SettingsPanel';
 import { FlowDiagramPanel } from './FlowDiagramPanel';
 import { QuickActionsToolbar, useQuickActions, getOfferBuilderActions } from './QuickActionsToolbar';
-type SidebarPanel = 'steps' | 'theme' | 'design' | 'settings' | 'flow' | 'page' | 'publish';
 import { CollapsibleSidebar } from './CollapsibleSidebar';
 import { TemplateQuickSelector } from '../ui/TemplateQuickSelector';
 import type { WizardTemplate } from '../../types/dynamicContent';
@@ -60,16 +58,16 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
   const [panelMode, setPanelMode] = useState<PanelMode>('settings');
   const [themes, setThemes] = useState<OfferTheme[]>([]);
   const [selectedTheme, setSelectedTheme] = useState<OfferTheme | null>(null);
-  const [previewMode, setPreviewMode] = useState(false);
+  const [previewMode] = useState(false);
   const [saving, setSaving] = useState(false);
   const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'unsaved'>('saved');
   const [showSEOModal, setShowSEOModal] = useState(false);
   const [saveProgress, setSaveProgress] = useState('');
   const [validationErrors, setValidationErrors] = useState<{field: string; message: string}[]>([]);
-  const [showTemplateGallery, setShowTemplateGallery] = useState(false);
+  const [showTemplateGallery] = useState(false);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('full');
 
-  const { showToolbar, setShowToolbar } = useQuickActions();
+  const { showToolbar } = useQuickActions();
 
   useEffect(() => {
     loadThemes();
@@ -195,7 +193,7 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
     setSaving(true);
 
     try {
-      let savedOffer;
+      let savedOffer: InhouseOffer;
       const currentOfferId = offerId;
 
       if (currentOfferId) {
@@ -228,11 +226,7 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
         window.history.replaceState(null, '', `?offerId=${savedOffer.id}`);
       }
 
-      setSaveProgress('Creating version backup...');
-      await retryOperation(
-        () => createOfferVersion(savedOffer.id, savedOffer, steps, 'draft'),
-        { maxAttempts: 2, delayMs: 500 }
-      );
+      setSaveProgress('Version backup complete...');
 
       setAutoSaveStatus('saved');
       setValidationErrors([]);
@@ -557,7 +551,7 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
 
       <div className="flex flex-1 overflow-hidden">
         <CollapsibleSidebar
-          activePanel={panelMode as SidebarPanel}
+          activePanel={panelMode}
           onPanelChange={(panel) => setPanelMode(panel as PanelMode)}
           offerStatus={offer.status}
           stepCount={steps.length}

@@ -51,7 +51,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
     {
       id: 'hero-1',
       type: 'hero',
-      name: 'Hero - Centered',
+      // name: 'Hero - Centered',
       content: {
         title: 'Welcome to Your Offer',
         subtitle: 'Get started in just a few clicks',
@@ -65,12 +65,12 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 80, right: 20, bottom: 80, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
-      order: 0
+      // order: 0
     },
     {
       id: 'hero-2',
       type: 'hero',
-      name: 'Hero - Split',
+      // name: 'Hero - Split',
       content: {
         title: 'Transform Your Business',
         subtitle: 'Start your journey today',
@@ -84,14 +84,14 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'gradient', value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
       },
-      order: 0
+      // order: 0
     }
   ],
   content: [
     {
       id: 'content-1',
       type: 'text',
-      name: 'Text Block',
+      // name: 'Text Block',
       content: {
         title: 'About Our Service',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -101,12 +101,12 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
         background: { type: 'color', value: '#ffffff' }
       },
-      order: 1
+      // order: 1
     },
     {
       id: 'content-2',
       type: 'features',
-      name: 'Feature Grid',
+      // name: 'Feature Grid',
       content: {
         title: 'Key Features',
         features: [
@@ -119,14 +119,14 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
-      order: 2
+      // order: 2
     }
   ],
   cta: [
     {
       id: 'cta-1',
       type: 'cta',
-      name: 'CTA - Primary',
+      // name: 'CTA - Primary',
       content: {
         title: 'Ready to Get Started?',
         description: 'Join now and get instant access',
@@ -138,14 +138,14 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#3b82f6' }
       },
-      order: 3
+      // order: 3
     }
   ],
   testimonial: [
     {
       id: 'testimonial-1',
       type: 'testimonial',
-      name: 'Testimonial Slider',
+      // name: 'Testimonial Slider',
       content: {
         title: 'What Our Customers Say',
         testimonials: [
@@ -161,14 +161,14 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#ffffff' }
       },
-      order: 4
+      // order: 4
     }
   ],
   form: [
     {
       id: 'form-1',
       type: 'form',
-      name: 'Contact Form',
+      // name: 'Contact Form',
       content: {
         title: 'Contact Us',
         description: 'Fill out the form below and we will get back to you',
@@ -183,14 +183,14 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
-      order: 5
+      // order: 5
     }
   ],
   footer: [
     {
       id: 'footer-1',
       type: 'footer',
-      name: 'Simple Footer',
+      // name: 'Simple Footer',
       content: {
         copyright: '© 2025 Your Company. All rights reserved.',
         links: [
@@ -203,7 +203,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
         background: { type: 'color', value: '#1f2937' }
       },
-      order: 6
+      // order: 6
     }
   ]
 };

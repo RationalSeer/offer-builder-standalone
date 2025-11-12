@@ -16,7 +16,7 @@ import {
   Lock,
   Unlock,
 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
+import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { SectionLibraryPanel } from './SectionLibraryPanel';

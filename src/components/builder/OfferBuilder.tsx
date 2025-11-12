@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, GripVertical, Save, AlertCircle, RefreshCw } from 'lucide-react';
-import type { InhouseOffer, OfferStep, StepType, StepOption } from '../../types/inhouseOffer';
+import { Trash2, GripVertical, Save, AlertCircle, RefreshCw } from 'lucide-react';
+import type { InhouseOffer, OfferStep, StepType } from '../../types/inhouseOffer';
 import {
   createOffer,
   updateOffer,
@@ -8,7 +8,6 @@ import {
   createOfferStep,
   updateOfferStep,
   deleteOfferStep,
-  reorderSteps,
 } from '../../services/offerService';
 import { retryOperation, validateOfferData, formatValidationErrors, getFieldError } from '../../lib/retry-utils';
 
@@ -26,12 +25,6 @@ export function OfferBuilder({ offerId, onSave }: OfferBuilderProps) {
     default_payout: 0,
     config: {
       progressBar: { style: 'bar', position: 'top' },
-      theme: {
-        primaryColor: '#6366f1',
-        backgroundColor: '#ffffff',
-        textColor: '#1f2937',
-        buttonStyle: 'rounded',
-      },
     },
   });
 

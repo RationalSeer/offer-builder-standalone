@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Sparkles, Check } from 'lucide-react';
 import {
   conditionalTemplates,
-  ConditionalTemplate,
-  applyTemplate,
 } from '../../data/conditionalTemplates';
+import type { ConditionalTemplate } from '../../data/conditionalTemplates';
 import type { OfferStep } from '../../types/inhouseOffer';
 
 interface ConditionalTemplatesPanelProps {
@@ -14,18 +13,17 @@ interface ConditionalTemplatesPanelProps {
 }
 
 export function ConditionalTemplatesPanel({
-  currentStep,
-  allSteps,
   onApplyTemplate,
 }: ConditionalTemplatesPanelProps) {
   const [selectedCategory, setSelectedCategory] = useState<
     'all' | 'qualification' | 'routing' | 'disqualification'
   >('all');
 
+  const allTemplates = Object.values(conditionalTemplates).flat();
   const filteredTemplates =
     selectedCategory === 'all'
-      ? conditionalTemplates
-      : conditionalTemplates.filter((t) => t.category === selectedCategory);
+      ? allTemplates
+      : allTemplates.filter((t: ConditionalTemplate) => t.category === selectedCategory);
 
   const categoryColors = {
     qualification: 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300',
@@ -93,7 +91,7 @@ export function ConditionalTemplatesPanel({
       </div>
 
       <div className="grid grid-cols-1 gap-3 max-h-[500px] overflow-y-auto">
-        {filteredTemplates.map((template) => (
+        {filteredTemplates.map((template: ConditionalTemplate) => (
           <div
             key={template.id}
             className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-blue-400 dark:hover:border-blue-600 transition-colors"
@@ -107,7 +105,7 @@ export function ConditionalTemplatesPanel({
                   </h4>
                   <span
                     className={`px-2 py-0.5 text-xs rounded whitespace-nowrap ${
-                      categoryColors[template.category]
+                      categoryColors[template.category as keyof typeof categoryColors]
                     }`}
                   >
                     {template.category}
