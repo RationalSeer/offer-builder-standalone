@@ -1,69 +1,17 @@
-import { createContext, useContext, useState } from 'react';
-import type { ReactNode } from 'react';
-
-interface Toast {
-  id: string;
-  title?: string;
-  description: string;
-  variant?: 'default' | 'success' | 'error' | 'warning';
-}
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { Toast, ToastContainer, ToastType } from '../components/ui/Toast';
 
 interface ToastContextType {
-  toasts: Toast[];
-  toast: (options: Omit<Toast, 'id'>) => void;
-  dismiss: (id: string) => void;
+  showToast: (options: Omit<Toast, 'id'>) => void;
+  showSuccess: (title: string, message?: string, action?: Toast['action']) => void;
+  showError: (title: string, message?: string, action?: Toast['action']) => void;
+  showWarning: (title: string, message?: string, action?: Toast['action']) => void;
+  showInfo: (title: string, message?: string, action?: Toast['action']) => void;
+  dismissToast: (id: string) => void;
+  dismissAll: () => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
-
-export function ToastProvider({ children }: { children: ReactNode }) {
-  const [toasts, setToasts] = useState<Toast[]>([]);
-
-  const toast = (options: Omit<Toast, 'id'>) => {
-    const id = Math.random().toString(36).substring(7);
-    const newToast = { ...options, id };
-    setToasts((prev) => [...prev, newToast]);
-
-    setTimeout(() => {
-      dismiss(id);
-    }, 5000);
-  };
-
-  const dismiss = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
-
-  return (
-    <ToastContext.Provider value={{ toasts, toast, dismiss }}>
-      {children}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-        {toasts.map((t) => (
-          <div
-            key={t.id}
-            className={`rounded-lg p-4 shadow-lg max-w-md ${
-              t.variant === 'error'
-                ? 'bg-red-500 text-white'
-                : t.variant === 'success'
-                ? 'bg-green-500 text-white'
-                : t.variant === 'warning'
-                ? 'bg-yellow-500 text-white'
-                : 'bg-gray-800 text-white'
-            }`}
-          >
-            {t.title && <div className="font-semibold mb-1">{t.title}</div>}
-            <div className="text-sm">{t.description}</div>
-            <button
-              onClick={() => dismiss(t.id)}
-              className="absolute top-2 right-2 text-white/70 hover:text-white"
-            >
-              ×
-            </button>
-          </div>
-        ))}
-      </div>
-    </ToastContext.Provider>
-  );
-}
 
 export function useToast() {
   const context = useContext(ToastContext);
@@ -71,4 +19,64 @@ export function useToast() {
     throw new Error('useToast must be used within ToastProvider');
   }
   return context;
+}
+
+interface ToastProviderProps {
+  children: ReactNode;
+}
+
+export function ToastProvider({ children }: ToastProviderProps) {
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = useCallback((options: Omit<Toast, 'id'>) => {
+    const id = `toast-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+    const newToast: Toast = {
+      id,
+      ...options,
+      duration: options.duration ?? 5000,
+    };
+
+    setToasts((prev) => [...prev, newToast]);
+  }, []);
+
+  const showSuccess = useCallback((title: string, message?: string, action?: Toast['action']) => {
+    showToast({ type: 'success', title, message, action });
+  }, [showToast]);
+
+  const showError = useCallback((title: string, message?: string, action?: Toast['action']) => {
+    showToast({ type: 'error', title, message, duration: 7000, action });
+  }, [showToast]);
+
+  const showWarning = useCallback((title: string, message?: string, action?: Toast['action']) => {
+    showToast({ type: 'warning', title, message, action });
+  }, [showToast]);
+
+  const showInfo = useCallback((title: string, message?: string, action?: Toast['action']) => {
+    showToast({ type: 'info', title, message, action });
+  }, [showToast]);
+
+  const dismissToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  }, []);
+
+  const dismissAll = useCallback(() => {
+    setToasts([]);
+  }, []);
+
+  return (
+    <ToastContext.Provider
+      value={{
+        showToast,
+        showSuccess,
+        showError,
+        showWarning,
+        showInfo,
+        dismissToast,
+        dismissAll,
+      }}
+    >
+      {children}
+      <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+    </ToastContext.Provider>
+  );
 }
