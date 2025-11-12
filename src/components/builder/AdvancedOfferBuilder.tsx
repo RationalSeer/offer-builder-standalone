@@ -212,7 +212,7 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
       } else {
         setSaveProgress('Creating new offer...');
         savedOffer = await retryOperation(
-          () => createOffer(offer as any),
+          () => createOffer(offer as Omit<InhouseOffer, 'id' | 'created_at' | 'updated_at' | 'created_by'>),
           { maxAttempts: 3, delayMs: 1000 }
         );
 
@@ -555,8 +555,8 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
 
       <div className="flex flex-1 overflow-hidden">
         <CollapsibleSidebar
-          activePanel={panelMode as SidebarPanel}
-          onPanelChange={(panel) => setPanelMode(panel as PanelMode)}
+          activePanel={panelMode}
+          onPanelChange={(panel) => setPanelMode(panel)}
           offerStatus={offer.status}
           stepCount={steps.length}
         />
