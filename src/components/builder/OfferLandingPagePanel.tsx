@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Eye, Trash2, Link as LinkIcon } from 'lucide-react';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
+import { Plus, Edit, Eye, ExternalLink, Trash2, Link as LinkIcon } from 'lucide-react';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
 import { EnhancedPageBuilder } from './EnhancedPageBuilder';
 import { supabase } from '../../lib/supabase';
 import { useToast } from '../../lib/toast-context';
@@ -23,7 +23,7 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
   const [loading, setLoading] = useState(true);
   const [showBuilder, setShowBuilder] = useState(false);
   const [selectedPage, setSelectedPage] = useState<LandingPage | null>(null);
-  const { toast } = useToast();
+  const { success, error: showError } = useToast();
 
   useEffect(() => {
     if (offerId) {
@@ -46,7 +46,7 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
       setLandingPages(data || []);
     } catch (error) {
       console.error('Error loading landing pages:', error);
-      toast({ description: 'Failed to load landing pages', variant: 'error' });
+      showError('Failed to load landing pages');
     } finally {
       setLoading(false);
     }
@@ -54,7 +54,7 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
 
   async function handleCreateNew() {
     if (!offerId) {
-      toast({ description: 'Please save the offer first before creating a landing page', variant: 'error' });
+      showError('Please save the offer first before creating a landing page');
       return;
     }
 
@@ -77,13 +77,13 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
 
       if (error) throw error;
 
-      toast({ description: 'Landing page created successfully!', variant: 'success' });
+      success('Landing page created successfully!');
       await loadLandingPages();
       setSelectedPage(data);
       setShowBuilder(true);
     } catch (error) {
       console.error('Error creating landing page:', error);
-      toast({ description: 'Failed to create landing page', variant: 'error' });
+      showError('Failed to create landing page');
     }
   }
 
@@ -105,11 +105,11 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
 
       if (error) throw error;
 
-      toast({ description: 'Landing page deleted successfully!', variant: 'success' });
+      success('Landing page deleted successfully!');
       await loadLandingPages();
     } catch (error) {
       console.error('Error deleting landing page:', error);
-      toast({ description: 'Failed to delete landing page', variant: 'error' });
+      showError('Failed to delete landing page');
     }
   }
 
@@ -161,11 +161,11 @@ export function OfferLandingPagePanel({ offerId }: OfferLandingPagePanelProps) {
 
                 if (error) throw error;
 
-                toast({ description: 'Landing page saved successfully!', variant: 'success' });
+                success('Landing page saved successfully!');
                 await loadLandingPages();
               } catch (error) {
                 console.error('Error saving landing page:', error);
-                toast({ description: 'Failed to save landing page', variant: 'error' });
+                showError('Failed to save landing page');
                 throw error;
               }
             }}

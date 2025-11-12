@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Plus, Trash2, GripVertical, Settings, Save } from 'lucide-react';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
-import type { FormFieldConfig, MultiStepFormConfig } from '../../types/pageBuilder';
+import { Card, CardContent } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
+import { FormFieldConfig, MultiStepFormConfig } from '../../types/pageBuilder';
 import { cn } from '../../lib/utils';
 
 interface AdvancedFormBuilderProps {

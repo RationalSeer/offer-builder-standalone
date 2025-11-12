@@ -42,13 +42,14 @@ export async function checkSupabaseConnection(): Promise<{ connected: boolean; e
     }
 
     return { connected: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Supabase connection check exception:', error);
-    return { connected: false, error: `Connection failed: ${error.message || 'Unknown error'}` };
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return { connected: false, error: `Connection failed: ${errorMessage}` };
   }
 }
 
-export async function checkUserAuthentication(): Promise<{ authenticated: boolean; user: any | null; error?: string }> {
+export async function checkUserAuthentication(): Promise<{ authenticated: boolean; user: { id: string; email?: string } | null; error?: string }> {
   try {
     const { data: { user }, error } = await supabase.auth.getUser();
 
@@ -62,31 +63,50 @@ export async function checkUserAuthentication(): Promise<{ authenticated: boolea
     }
 
     return { authenticated: true, user };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Authentication check exception:', error);
-    return { authenticated: false, user: null, error: `Auth check failed: ${error.message || 'Unknown error'}` };
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return { authenticated: false, user: null, error: `Auth check failed: ${errorMessage}` };
   }
 }
 
-export function getSupabaseErrorMessage(error: any): string {
+export function getSupabaseErrorMessage(error: unknown): string {
   if (!error) return 'An unknown error occurred';
 
   if (typeof error === 'string') return error;
 
-  if (error.message) {
-    if (error.code === '42501') {
+  if (error instanceof Error) {
+    const err = error as Error & { code?: string; details?: string; hint?: string };
+    if (err.code === '42501') {
       return 'Permission denied. You may not have access to perform this action.';
     }
-    if (error.code === '23505') {
+    if (err.code === '23505') {
       return 'This record already exists. Please use a different identifier.';
     }
-    if (error.code === '23503') {
+    if (err.code === '23503') {
       return 'Related record not found. Please ensure all required data exists.';
     }
-    if (error.code === 'PGRST116') {
+    if (err.code === 'PGRST116') {
       return 'No data found or you do not have permission to access it.';
     }
-    return error.message;
+    return err.message;
+  }
+
+  if (error && typeof error === 'object' && 'message' in error) {
+    const errObj = error as { message: unknown; code?: unknown };
+    if (errObj.code === '42501') {
+      return 'Permission denied. You may not have access to perform this action.';
+    }
+    if (errObj.code === '23505') {
+      return 'This record already exists. Please use a different identifier.';
+    }
+    if (errObj.code === '23503') {
+      return 'Related record not found. Please ensure all required data exists.';
+    }
+    if (errObj.code === 'PGRST116') {
+      return 'No data found or you do not have permission to access it.';
+    }
+    return String(errObj.message);
   }
 
   return JSON.stringify(error);

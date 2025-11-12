@@ -122,7 +122,7 @@ export function InhouseOfferManager() {
       setSelectedOfferId(createdOfferId);
       setShowBuilder(true);
       await loadOffers();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to create offer from wizard:', error);
       const errorMessage = error?.message || 'Failed to create offer. Please try again.';
       alert(errorMessage);
@@ -192,7 +192,7 @@ export function InhouseOfferManager() {
       setSelectedOfferId(createdOfferId);
       setShowBuilder(true);
       await loadOffers();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to create offer from template:', error);
       alert(error?.message || 'Failed to create offer from template');
     }

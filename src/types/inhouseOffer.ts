@@ -102,6 +102,13 @@ export interface OfferStep {
   placeholder_text?: string;
   help_text?: string;
   field_mapping?: string;
+  element_styles?: ElementStyles;
+  text_alignment?: 'left' | 'center' | 'right' | 'justify';
+  font_settings?: {
+    family?: string;
+    size?: string;
+    weight?: string;
+  };
   step_layout?: 'centered' | 'split' | 'sidebar' | 'full-width';
   step_background?: {
     type: 'solid' | 'gradient' | 'image';

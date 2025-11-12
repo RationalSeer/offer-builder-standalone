@@ -10,19 +10,38 @@ import type {
 
 const DEBUG = true;
 
-function log(operation: string, details: any) {
+function log(operation: string, details: unknown) {
   if (DEBUG) {
     console.log(`[OfferService:${operation}]`, details);
   }
 }
 
-function logError(operation: string, error: any, context?: any) {
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return getErrorMessage(error);
+  if (typeof error === 'string') return error;
+  if (error && typeof error === 'object' && 'message' in error) {
+    return String(getErrorMessage(error));
+  }
+  return 'Unknown error';
+}
+
+function getErrorDetails(error: unknown): Record<string, unknown> {
+  if (error && typeof error === 'object') {
+    const details: Record<string, unknown> = {};
+    if ('message' in error) details.message = getErrorMessage(error);
+    if ('details' in error) details.details = error.details;
+    if ('hint' in error) details.hint = error.hint;
+    if ('code' in error) details.code = error.code;
+    return details;
+  }
+  return {};
+}
+
+function logError(operation: string, error: unknown, context?: unknown) {
+  const details = getErrorDetails(error);
   console.error(`[OfferService:${operation}] ERROR:`, {
     error,
-    message: error?.message,
-    details: error?.details,
-    hint: error?.hint,
-    code: error?.code,
+    ...details,
     context,
   });
 }
@@ -32,24 +51,31 @@ interface ValidationResult {
   errors: string[];
 }
 
-function validateOfferData(offer: any): ValidationResult {
+function validateOfferData(offer: unknown): ValidationResult {
   const errors: string[] = [];
 
-  if (!offer.name || typeof offer.name !== 'string' || offer.name.trim().length === 0) {
+  if (!offer || typeof offer !== 'object') {
+    errors.push('Offer data is required and must be an object');
+    return { valid: false, errors };
+  }
+
+  const offerObj = offer as Record<string, unknown>;
+
+  if (!offerObj.name || typeof offerObj.name !== 'string' || offerObj.name.trim().length === 0) {
     errors.push('Offer name is required and must be a non-empty string');
   }
 
-  if (!offer.slug || typeof offer.slug !== 'string' || offer.slug.trim().length === 0) {
+  if (!offerObj.slug || typeof offerObj.slug !== 'string' || offerObj.slug.trim().length === 0) {
     errors.push('Offer slug is required and must be a non-empty string');
-  } else if (!/^[a-z0-9-]+$/.test(offer.slug)) {
+  } else if (!/^[a-z0-9-]+$/.test(offerObj.slug)) {
     errors.push('Offer slug can only contain lowercase letters, numbers, and hyphens');
   }
 
-  if (!offer.vertical || typeof offer.vertical !== 'string') {
+  if (!offerObj.vertical || typeof offerObj.vertical !== 'string') {
     errors.push('Offer vertical is required');
   }
 
-  if (offer.default_payout !== undefined && (isNaN(offer.default_payout) || offer.default_payout < 0)) {
+  if (offerObj.default_payout !== undefined && (typeof offerObj.default_payout !== 'number' || isNaN(offerObj.default_payout) || offerObj.default_payout < 0)) {
     errors.push('Default payout must be a non-negative number');
   }
 
@@ -59,22 +85,29 @@ function validateOfferData(offer: any): ValidationResult {
   };
 }
 
-function validateStepData(step: any): ValidationResult {
+function validateStepData(step: unknown): ValidationResult {
   const errors: string[] = [];
 
-  if (!step.offer_id) {
+  if (!step || typeof step !== 'object') {
+    errors.push('Step data is required and must be an object');
+    return { valid: false, errors };
+  }
+
+  const stepObj = step as Record<string, unknown>;
+
+  if (!stepObj.offer_id) {
     errors.push('Step must be associated with an offer (offer_id required)');
   }
 
-  if (step.step_order === undefined || step.step_order === null || step.step_order < 0) {
+  if (stepObj.step_order === undefined || stepObj.step_order === null || (typeof stepObj.step_order === 'number' && stepObj.step_order < 0)) {
     errors.push('Step order must be a non-negative number');
   }
 
-  if (!step.step_type || typeof step.step_type !== 'string') {
+  if (!stepObj.step_type || typeof stepObj.step_type !== 'string') {
     errors.push('Step type is required');
   }
 
-  if (!step.question_text || typeof step.question_text !== 'string' || step.question_text.trim().length === 0) {
+  if (!stepObj.question_text || typeof stepObj.question_text !== 'string' || stepObj.question_text.trim().length === 0) {
     errors.push('Question text is required and must be a non-empty string');
   }
 
@@ -670,7 +703,7 @@ export async function saveAllOfferSteps(offerId: string, steps: OfferStep[]): Pr
       log(operation, { completed: true, savedCount: savedSteps.length, errorCount: errors.length });
       throw new Error(
         `Saved ${savedSteps.length} steps but encountered ${errors.length} errors. ` +
-        `First error: ${errors[0].error.message}`
+        `First error: ${errors[0].getErrorMessage(error)}`
       );
     }
 

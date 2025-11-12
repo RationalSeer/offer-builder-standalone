@@ -2,18 +2,19 @@ export interface RetryOptions {
   maxAttempts?: number;
   delayMs?: number;
   backoffMultiplier?: number;
-  shouldRetry?: (error: any) => boolean;
+  shouldRetry?: (error: unknown) => boolean;
 }
 
 const defaultRetryOptions: Required<RetryOptions> = {
   maxAttempts: 3,
   delayMs: 1000,
   backoffMultiplier: 2,
-  shouldRetry: (error: any) => {
+  shouldRetry: (error: unknown) => {
     if (!error) return false;
 
-    const message = error.message?.toLowerCase() || '';
-    const code = error.code || '';
+    const message = (error instanceof Error ? error.message : String(error)).toLowerCase();
+    const errorObj = error && typeof error === 'object' && 'code' in error ? error : null;
+    const code = errorObj && typeof errorObj.code === 'string' ? errorObj.code : '';
 
     const retryableErrors = [
       'network',
@@ -45,14 +46,14 @@ export async function retryOperation<T>(
   options: RetryOptions = {}
 ): Promise<T> {
   const opts = { ...defaultRetryOptions, ...options };
-  let lastError: any;
+  let lastError: unknown;
   let currentDelay = opts.delayMs;
 
   for (let attempt = 1; attempt <= opts.maxAttempts; attempt++) {
     try {
       console.log(`Attempting operation (attempt ${attempt}/${opts.maxAttempts})`);
       return await operation();
-    } catch (error: any) {
+    } catch (error: unknown) {
       lastError = error;
       console.error(`Operation failed on attempt ${attempt}:`, error);
 
@@ -62,8 +63,9 @@ export async function retryOperation<T>(
       if (!shouldRetry || isLastAttempt) {
         if (isLastAttempt && shouldRetry) {
           console.error('Max retry attempts reached. Giving up.');
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           throw new Error(
-            `Operation failed after ${opts.maxAttempts} attempts. Last error: ${error.message || 'Unknown error'}`
+            `Operation failed after ${opts.maxAttempts} attempts. Last error: ${errorMessage}`
           );
         }
         throw error;
@@ -100,69 +102,79 @@ export interface ValidationResult {
   errors: ValidationError[];
 }
 
-export function validateOfferData(offer: any): ValidationResult {
+export function validateOfferData(offer: unknown): ValidationResult {
   const errors: ValidationError[] = [];
 
-  if (!offer.name || offer.name.trim().length === 0) {
+  if (!offer || typeof offer !== 'object') {
+    errors.push({
+      field: 'offer',
+      message: 'Offer data is required and must be an object',
+    });
+    return { valid: false, errors };
+  }
+
+  const offerObj = offer as Record<string, unknown>;
+
+  if (!offerObj.name || typeof offerObj.name !== 'string' || offerObj.name.trim().length === 0) {
     errors.push({
       field: 'name',
       message: 'Offer name is required and cannot be empty',
     });
-  } else if (offer.name.length < 3) {
+  } else if (typeof offerObj.name === 'string' && offerObj.name.length < 3) {
     errors.push({
       field: 'name',
       message: 'Offer name must be at least 3 characters long',
     });
-  } else if (offer.name.length > 200) {
+  } else if (typeof offerObj.name === 'string' && offerObj.name.length > 200) {
     errors.push({
       field: 'name',
       message: 'Offer name must be less than 200 characters',
     });
   }
 
-  if (!offer.slug || offer.slug.trim().length === 0) {
+  if (!offerObj.slug || typeof offerObj.slug !== 'string' || offerObj.slug.trim().length === 0) {
     errors.push({
       field: 'slug',
       message: 'URL slug is required and cannot be empty',
     });
-  } else if (!/^[a-z0-9-]+$/.test(offer.slug)) {
+  } else if (typeof offerObj.slug === 'string' && !/^[a-z0-9-]+$/.test(offerObj.slug)) {
     errors.push({
       field: 'slug',
       message: 'URL slug can only contain lowercase letters, numbers, and hyphens',
     });
-  } else if (offer.slug.length < 3) {
+  } else if (typeof offerObj.slug === 'string' && offerObj.slug.length < 3) {
     errors.push({
       field: 'slug',
       message: 'URL slug must be at least 3 characters long',
     });
-  } else if (offer.slug.length > 100) {
+  } else if (typeof offerObj.slug === 'string' && offerObj.slug.length > 100) {
     errors.push({
       field: 'slug',
       message: 'URL slug must be less than 100 characters',
     });
-  } else if (offer.slug.startsWith('-') || offer.slug.endsWith('-')) {
+  } else if (typeof offerObj.slug === 'string' && (offerObj.slug.startsWith('-') || offerObj.slug.endsWith('-'))) {
     errors.push({
       field: 'slug',
       message: 'URL slug cannot start or end with a hyphen',
     });
   }
 
-  if (!offer.vertical || offer.vertical.trim().length === 0) {
+  if (!offerObj.vertical || typeof offerObj.vertical !== 'string' || offerObj.vertical.trim().length === 0) {
     errors.push({
       field: 'vertical',
       message: 'Vertical selection is required',
     });
   }
 
-  if (offer.status && !['draft', 'active', 'paused', 'archived'].includes(offer.status)) {
+  if (offerObj.status && typeof offerObj.status === 'string' && !['draft', 'active', 'paused', 'archived'].includes(offerObj.status)) {
     errors.push({
       field: 'status',
       message: 'Invalid status value',
     });
   }
 
-  if (offer.default_payout !== undefined && offer.default_payout !== null) {
-    const payout = parseFloat(offer.default_payout);
+  if (offerObj.default_payout !== undefined && offerObj.default_payout !== null) {
+    const payout = typeof offerObj.default_payout === 'string' ? parseFloat(offerObj.default_payout) : typeof offerObj.default_payout === 'number' ? offerObj.default_payout : NaN;
     if (isNaN(payout)) {
       errors.push({
         field: 'default_payout',

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
 import { Plus, Trash2, Image as ImageIcon } from 'lucide-react';
 import type { PageSection } from '../../types/pageBuilder';
 

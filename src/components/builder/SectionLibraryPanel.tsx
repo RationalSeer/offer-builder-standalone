@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Plus, Search, Star, Crown } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
-import { Badge } from '../ui/Badge';
-import { sectionLibrary, sectionCategories } from '../../data/sectionLibrary';
+import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import { Badge } from '../../components/ui/Badge';
+import { sectionLibraryData, sectionCategories } from '../../data/sectionLibrary';
 import type { PageSection } from '../../types/pageBuilder';
 
 interface SectionLibraryPanelProps {
@@ -15,11 +15,7 @@ export function SectionLibraryPanel({ onAddSection }: SectionLibraryPanelProps) 
   const [searchQuery, setSearchQuery] = useState('');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  const allSections = Object.entries(sectionLibrary).flatMap(([category, sections]) =>
-    sections.map(section => ({ ...section, category, name: `${category} Section`, description: section.content.title || 'Section template' }))
-  );
-
-  const filteredSections = allSections.filter((section: any) => {
+  const filteredSections = sectionLibraryData.filter((section) => {
     const matchesCategory = selectedCategory === 'all' || section.category === selectedCategory;
     const matchesSearch = searchQuery === '' ||
       section.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -39,7 +35,7 @@ export function SectionLibraryPanel({ onAddSection }: SectionLibraryPanelProps) 
     setFavorites(newFavorites);
   };
 
-  const handleAddSection = (section: any) => {
+  const handleAddSection = (section: typeof sectionLibraryData[0]) => {
     const newSection: PageSection = {
       ...section.default_config,
       id: `section_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,

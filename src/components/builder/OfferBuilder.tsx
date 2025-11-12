@@ -102,7 +102,7 @@ export function OfferBuilder({ offerId, onSave }: OfferBuilderProps) {
       alert('✓ Offer saved successfully!');
       setValidationErrors([]);
       if (onSave) onSave();
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage = error?.message || 'Failed to save offer';
       console.error('Offer save error:', error);
 
