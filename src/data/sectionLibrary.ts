@@ -70,7 +70,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
       },
       style: {
         padding: { top: 80, right: 20, bottom: 80, left: 20 },
-        background: { type: 'color', value: '#f8f9fa' }
+        background: { type: 'solid', value: '#f8f9fa' }
       },
       // order: 0
     },
@@ -106,7 +106,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
       },
       style: {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
-        background: { type: 'color', value: '#ffffff' }
+        background: { type: 'solid', value: '#ffffff' }
       },
       // order: 1
     },
@@ -143,7 +143,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
       },
       style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
-        background: { type: 'color', value: '#3b82f6' }
+        background: { type: 'solid', value: '#3b82f6' }
       },
       // order: 3
     }
@@ -166,7 +166,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
       },
       style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
-        background: { type: 'color', value: '#ffffff' }
+        background: { type: 'solid', value: '#ffffff' }
       },
       // order: 4
     }
@@ -208,9 +208,18 @@ export const sectionLibrary: Record<string, PageSection[]> = {
       },
       style: {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
-        background: { type: 'color', value: '#1f2937' }
+        background: { type: 'solid', value: '#1f2937' }
       },
       // order: 6
     }
   ]
 };
+
+export const sectionLibraryData: Array<{
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  isPremium?: boolean;
+  default_config: PageSection;
+}> = [];

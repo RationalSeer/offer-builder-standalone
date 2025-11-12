@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, GripVertical, ChevronUp, ChevronDown, Copy, GitBranch, Sparkles, Eye, Wand2 } from 'lucide-react';
-import { OfferStep, StepType } from '../../types/inhouseOffer';
+import type { OfferStep, StepType } from '../../types/inhouseOffer';
 import { ConditionalLogicPanel } from './ConditionalLogicPanel';
 import { StepBranchingPanel } from './StepBranchingPanel';
 import { ConditionalTemplatesPanel } from './ConditionalTemplatesPanel';
-import { ConditionalTemplate } from '../../data/conditionalTemplates';
+import type { ConditionalTemplate } from '../../data/conditionalTemplates';
 import { StepTemplateGallery} from './StepTemplateGallery';
-import { StepTemplate } from '../../types/stepTemplate';
-import { useDragAndDrop, useKeyboardReorder } from '../../hooks/useDragAndDrop';
+import type { StepTemplate } from '../../types/stepTemplate';
+import { useDragAndDrop } from '../../hooks/useDragAndDrop';
 import { DynamicVariableInserter } from './DynamicVariableInserter';
 
 interface StepDesignerPanelProps {
@@ -66,28 +66,8 @@ export function StepDesignerPanel({
     isItemSelected,
   } = useDragAndDrop<typeof stepsWithOrder[0]>();
 
-  const { moveUp, moveDown } = useKeyboardReorder(
-    stepsWithOrder,
-    selectedItems,
-    onStepsChange
-  );
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey) {
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          moveUp();
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          moveDown();
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [moveUp, moveDown]);
+  // TODO: Re-implement keyboard reordering
+  // const { moveUp, moveDown } = useKeyboardReorder(...);
 
   function addStep(stepType: StepType) {
     const newStep: OfferStep = {

@@ -63,3 +63,38 @@ export const stepTemplates: StepTemplate[] = [
     tags: ['choice', 'simple']
   }
 ];
+
+export const STEP_TEMPLATES = stepTemplates;
+
+export const STEP_TEMPLATE_CATEGORIES = [
+  { id: 'basic', name: 'Basic', description: 'Essential form fields' },
+  { id: 'choice', name: 'Choice', description: 'Selection questions' },
+  { id: 'qualification', name: 'Qualification', description: 'Qualifying questions' },
+  { id: 'personal', name: 'Personal', description: 'Personal information' }
+];
+
+export const STEP_TEMPLATE_VERTICALS = [
+  { id: 'general', name: 'General', description: 'General purpose' },
+  { id: 'lead_gen', name: 'Lead Generation', description: 'Lead capture' },
+  { id: 'qualification', name: 'Qualification', description: 'Lead qualification' }
+];
+
+export function getTemplatesByVertical(vertical: string) {
+  return stepTemplates;
+}
+
+export function getTemplatesByCategory(category: string) {
+  return stepTemplates.filter(t => t.category === category);
+}
+
+export function searchTemplates(query: string) {
+  const lowerQuery = query.toLowerCase();
+  return stepTemplates.filter(t =>
+    t.name.toLowerCase().includes(lowerQuery) ||
+    t.description.toLowerCase().includes(lowerQuery)
+  );
+}
+
+export function getPopularTemplates() {
+  return stepTemplates.slice(0, 4);
+}

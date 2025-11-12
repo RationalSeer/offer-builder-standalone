@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, CheckCircle2, AlertCircle, Info, AlertTriangle, Wifi, WifiOff } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 

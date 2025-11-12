@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Search, X, TrendingUp, Sparkles, Filter } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import { StepTemplate } from '../../types/stepTemplate';
+import type { StepTemplate } from '../../types/stepTemplate';
 import {
   STEP_TEMPLATES,
   STEP_TEMPLATE_CATEGORIES,
