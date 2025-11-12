@@ -7,6 +7,13 @@ export interface SectionCategory {
   icon: string;
 }
 
+export interface LibrarySection extends PageSection {
+  name: string;
+  description: string;
+  category: string;
+  isPremium?: boolean;
+}
+
 export const sectionCategories: SectionCategory[] = [
   {
     id: 'hero',
@@ -61,7 +68,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         imageUrl: '',
         alignment: 'center'
       },
-      styles: {
+      style: {
         padding: { top: 80, right: 20, bottom: 80, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
@@ -80,7 +87,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         imageUrl: '',
         alignment: 'left'
       },
-      styles: {
+      style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'gradient', value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
       },
@@ -97,7 +104,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         alignment: 'left'
       },
-      styles: {
+      style: {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
         background: { type: 'color', value: '#ffffff' }
       },
@@ -115,7 +122,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
           { icon: 'Check', title: 'Feature 3', description: 'Description here' }
         ]
       },
-      styles: {
+      style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
@@ -134,7 +141,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         buttonLink: '#',
         alignment: 'center'
       },
-      styles: {
+      style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#3b82f6' }
       },
@@ -157,7 +164,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
           }
         ]
       },
-      styles: {
+      style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#ffffff' }
       },
@@ -179,7 +186,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
         ],
         buttonText: 'Submit'
       },
-      styles: {
+      style: {
         padding: { top: 60, right: 20, bottom: 60, left: 20 },
         background: { type: 'color', value: '#f8f9fa' }
       },
@@ -199,7 +206,7 @@ export const sectionLibrary: Record<string, PageSection[]> = {
           { text: 'Contact', url: '#' }
         ]
       },
-      styles: {
+      style: {
         padding: { top: 40, right: 20, bottom: 40, left: 20 },
         background: { type: 'color', value: '#1f2937' }
       },

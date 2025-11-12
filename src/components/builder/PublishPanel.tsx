@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Globe, Calendar, Clock, ExternalLink, Copy, Check } from 'lucide-react';
 import type { InhouseOffer } from '../../types/inhouseOffer';
-import type { getOfferVersions, publishOfferVersion } from '../../services/offerTemplateService';
+import { getOfferVersions, publishOfferVersion } from '../../services/offerTemplateService';
 
 interface PublishPanelProps {
   offerId: string;
@@ -11,7 +11,6 @@ interface PublishPanelProps {
 
 export function PublishPanel({ offerId, offer, onOpenSEO }: PublishPanelProps) {
   const [versions, setVersions] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
   useEffect(() => {
@@ -20,13 +19,10 @@ export function PublishPanel({ offerId, offer, onOpenSEO }: PublishPanelProps) {
 
   async function loadVersions() {
     try {
-      setLoading(true);
       const data = await getOfferVersions(offerId);
       setVersions(data);
     } catch (error) {
       console.error('Failed to load versions:', error);
-    } finally {
-      setLoading(false);
     }
   }
 

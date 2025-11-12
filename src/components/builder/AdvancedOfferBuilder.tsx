@@ -58,13 +58,12 @@ export function AdvancedOfferBuilder({ offerId, onSave, onBack }: AdvancedOfferB
   const [panelMode, setPanelMode] = useState<PanelMode>('settings');
   const [themes, setThemes] = useState<OfferTheme[]>([]);
   const [selectedTheme, setSelectedTheme] = useState<OfferTheme | null>(null);
-  const [previewMode] = useState(false);
   const [saving, setSaving] = useState(false);
   const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'unsaved'>('saved');
   const [showSEOModal, setShowSEOModal] = useState(false);
   const [saveProgress, setSaveProgress] = useState('');
   const [validationErrors, setValidationErrors] = useState<{field: string; message: string}[]>([]);
-  const [showTemplateGallery] = useState(false);
+  const [showTemplateGallery, setShowTemplateGallery] = useState(false);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('full');
 
   const { showToolbar } = useQuickActions();
